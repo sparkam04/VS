@@ -1,0 +1,89 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<News_MVC.Models.Articles>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br>
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Create New Article", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Priority)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().ArticleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ArticleContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreationDate)
+            <br/>
+            Modified
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ToHomePage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ToArchive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().AspNetUsers.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.ArticleName)
+        </td>
+        <td>
+            
+            <div style="width: 400px; height: 200px; overflow-y: scroll;">
+                @*@Html.DisplayFor(modelItem => item.ArticleContent)*@
+
+                @Html.Raw(item.ArticleContent)
+            </div>
+            
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+            <br/>
+            @Html.DisplayFor(modelItem => item.DateModitied)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToHomePage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToArchive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ArticleID }) <br/>
+            @Html.ActionLink("Details", "Details", new { id=item.ArticleID }) <br />
+            @Html.ActionLink("Delete", "Delete", new { id=item.ArticleID })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

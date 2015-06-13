@@ -1,0 +1,35 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@*@model IEnumerable<News_MVC.Models.Articles>*@
+
+@model IPagedList<News_MVC.Models.Articles>
+
+@{
+    ViewBag.Title = "Archive";
+}
+
+<h2>Archived Articles</h2>
+
+<table class="table">
+
+
+@foreach (var item in Model)
+{
+    <tr>
+        
+        <td>
+           
+            @Html.ActionLink(item.ArticleName, "ArticleContent", new { id = item.ArticleID })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("ArchiveList", new { page}))
+
+<div>
+    @Html.Partial("_TagsList", ViewData["Tags"])
+</div>

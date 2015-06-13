@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Management";
+}
+
+<h2>Management</h2>
+
+@*<li>
+    @Html.ActionLink("Change your account settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+</li>*@
+<br/>
+
+<li>@Html.ActionLink("Manage Articles", "Index", "Articles")</li>
+<li>@Html.ActionLink("Manage Tags", "Index", "Tags")</li>
+<li>@Html.ActionLink("Tag Articles", "Index", "ArticleTags")</li>
+

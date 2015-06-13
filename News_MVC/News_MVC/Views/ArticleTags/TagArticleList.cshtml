@@ -1,0 +1,28 @@
+﻿@model IEnumerable<News_MVC.Models.ArticleTags>
+
+<p>
+    @*<h3>@ViewBag.Message</h3>*@
+    
+    <h3>Articles by tag @ViewBag.Tag</h3>
+</p>
+<br/>
+
+<table class="table">
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Articles.ArticleName)
+        </th>
+
+    </tr>*@
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Articles.ArticleName)*@
+            @Html.ActionLink(item.Articles.ArticleName, "ArticleContent", "Articles", new { id = item.Articles.ArticleID }, null)
+        </td>
+
+    </tr>
+}
+
+</table>

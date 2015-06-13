@@ -1,0 +1,92 @@
+﻿@model News_MVC.Models.Articles
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    @*@Html.Raw(Model.ArticleContent)*@
+
+<h2>Details</h2>
+
+<div>
+
+    <h4>Articles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleContent)
+            
+        </dt>
+
+        <dd>
+            @*Html.DisplayFor(model => model.ArticleContent)*@
+            @Html.Raw(Model.ArticleContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateModitied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModitied)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToHomePage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToHomePage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToArchive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToArchive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArticleID }) |
+    @Html.ActionLink("Back to List", "Index") <br />
+
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
+</p>
+

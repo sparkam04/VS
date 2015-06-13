@@ -1,0 +1,63 @@
+﻿@model News_MVC.Models.Articles
+
+@*
+    @{
+        ViewBag.Title = "Details";
+    }
+*@
+
+    @*@Html.Raw(Model.ArticleContent)*@
+
+
+<div>
+   <h2> @Html.DisplayFor(model => model.ArticleName)<h2>
+
+</div>
+
+<div>
+
+    @*Html.DisplayFor(model => model.ArticleContent)*@
+    @Html.Raw(Model.ArticleContent)
+
+</div>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+               
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CreationDate)*@
+            Created
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+           @* @Html.DisplayNameFor(model => model.DateModitied)*@
+            Last Modified
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateModitied)
+        </dd>       
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Back to List", "ArticleList")*@
+
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
+
+</p>
+
+
+

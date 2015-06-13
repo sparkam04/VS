@@ -1,0 +1,23 @@
+﻿@model IEnumerable<News_MVC.Models.Articles>
+
+@{
+    ViewBag.Title = "Archive";
+}
+
+<h2>ArticleList</h2>
+
+<table class="table">
+
+
+@foreach (var item in Model.Where(s => s.ToArchive == true ))
+{
+    <tr>
+        
+        <td>
+           
+            @Html.ActionLink(item.ArticleName, "ArticleContent", new { id = item.ArticleID })
+        </td>
+    </tr>
+}
+
+</table>

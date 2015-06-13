@@ -1,0 +1,16 @@
+﻿@model IEnumerable<News_MVC.Models.Tags>
+
+
+<table class="table">
+    <strong>Tags</strong><br/>
+
+@foreach (var item in Model)
+{
+    <tr> 
+        @Html.ActionLink(item.TagName, "TagArticleList", "ArticleTags", new { id = item.TagID }, null)
+        @Html.Raw("|")
+    </tr>
+    
+}
+
+</table>
