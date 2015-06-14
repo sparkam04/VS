@@ -1,4 +1,9 @@
-﻿@model IEnumerable<News_MVC.Models.ArticleTags>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@*@model IEnumerable<News_MVC.Models.ArticleTags>*@
+@model IPagedList<News_MVC.Models.ArticleTags>
 
 <p>
     @*<h3>@ViewBag.Message</h3>*@
@@ -26,3 +31,12 @@
 }
 
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("TagArticleList", new { page }))
+
+<br />
+
+<div>
+
+    @Html.Partial("_TagsList", ViewData["Tags"])
+</div>

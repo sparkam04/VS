@@ -26,6 +26,15 @@ namespace News_MVC.Controllers
         public ActionResult Index(int? page)
         {
             var articles = db.Articles.Include(a => a.AspNetUsers);
+            
+            if (Request.IsAuthenticated && User.IsInRole("User"))
+            {
+                var currentUser = User.Identity.GetUserId();
+
+                return View(articles.Where(s => s.AuthorID == currentUser).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 3));
+            }
+            
+            //var articles = db.Articles.Include(a => a.AspNetUsers);
             return View(articles.OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 3));
         }
 
@@ -70,7 +79,7 @@ namespace News_MVC.Controllers
             return View(articles);
         }
 
-        // GET: Articles/Details/5   Content
+        // GET: Articles/ArticleContent/5   Content
         public ActionResult ArticleContent(int? id)
         {
             if (id == null)
@@ -83,12 +92,12 @@ namespace News_MVC.Controllers
                 return HttpNotFound();
             }
 
-
+            ViewData["Tags"] = db.Tags.ToList();
             return View(articles);
         }
 
         // GET: Articles/Create
-        [Authorize]
+        [Authorize(Roles = "Admin, Editor, User")]
         public ActionResult Create()
         {
             //var userId = User.Identity.GetUserId();
@@ -108,6 +117,13 @@ namespace News_MVC.Controllers
             {
                 articles.CreationDate = DateTime.Now; ///
                 articles.AuthorID = User.Identity.GetUserId();///
+
+                if (Request.IsAuthenticated && User.IsInRole("User"))
+                {
+                    articles.Priority = null;
+                    articles.ToHomePage = false;
+                    articles.ToArchive = false;
+                }
 
                 db.Articles.Add(articles);
                 db.SaveChanges();
@@ -131,7 +147,11 @@ namespace News_MVC.Controllers
             {
                 return HttpNotFound();
             }
-
+            if (Request.IsAuthenticated && User.IsInRole("User")&&(articles.AuthorID != User.Identity.GetUserId()))
+            {
+                return Redirect("/Articles");
+                //return HttpNotFound();
+            }
             ViewBag.AuthorID = db.AspNetUsers.Find(articles.AuthorID).Email;
             //ViewBag.AuthorID = new SelectList(db.AspNetUsers, "Id", "Email", articles.AuthorID);
             return View(articles);
@@ -142,6 +162,7 @@ namespace News_MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]    
         public ActionResult Edit([Bind(Include = "ArticleID,AuthorID,ArticleName,ArticleContent,CreationDate,ToHomePage,ToArchive,Priority")] Articles articles)
         {
   
@@ -152,6 +173,13 @@ namespace News_MVC.Controllers
                 db.Entry(articles).State = EntityState.Modified;
                 db.Entry(articles).Property("CreationDate").IsModified = false;
                 db.Entry(articles).Property("AuthorID").IsModified = false;
+
+                if (Request.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("Corrector")))
+                {
+                    db.Entry(articles).Property("Priority").IsModified = false;
+                    articles.ToHomePage = false;
+                    articles.ToArchive = false;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -161,7 +189,7 @@ namespace News_MVC.Controllers
         }
 
         // GET: Articles/Delete/5
-        [Authorize]
+        [Authorize(Roles = "Admin, Editor, User")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -173,12 +201,19 @@ namespace News_MVC.Controllers
             {
                 return HttpNotFound();
             }
+            if (Request.IsAuthenticated && User.IsInRole("User") && (articles.AuthorID != User.Identity.GetUserId()))
+            {
+                return Redirect("/Articles");
+                //return HttpNotFound();
+            }
+
             return View(articles);
         }
 
         // POST: Articles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Articles articles = db.Articles.Find(id);

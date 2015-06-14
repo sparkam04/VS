@@ -10,7 +10,19 @@
 </li>*@
 <br/>
 
-<li>@Html.ActionLink("Manage Articles", "Index", "Articles")</li>
-<li>@Html.ActionLink("Manage Tags", "Index", "Tags")</li>
-<li>@Html.ActionLink("Tag Articles", "Index", "ArticleTags")</li>
+@if (Request.IsAuthenticated && User.IsInRole("Admin"))
+{
+    @*<li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>*@
+    <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+}
 
+<br />
+@if (Request.IsAuthenticated)
+{
+    <li>@Html.ActionLink("Manage Articles", "Index", "Articles")</li>
+}
+@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Editor")))
+{
+    <li>@Html.ActionLink("Manage Tags", "Index", "Tags")</li>
+    <li>@Html.ActionLink("Tag Articles", "Index", "ArticleTags")</li>
+}

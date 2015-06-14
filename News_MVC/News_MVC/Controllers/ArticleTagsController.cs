@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using News_MVC.Models;
 
+using PagedList;
+using PagedList.Mvc;
+
 namespace News_MVC.Controllers
 {
     public class ArticleTagsController : Controller
@@ -23,7 +26,7 @@ namespace News_MVC.Controllers
         }
 
         // GET: Article list by Tags
-        public ActionResult TagArticleList(int? id)
+        public ActionResult TagArticleList(int? id,int? page)
         {
             var articleTags = db.ArticleTags.Include(a => a.Articles).Include(a => a.Tags);
 
@@ -36,9 +39,9 @@ namespace News_MVC.Controllers
      
                 var Tag = db.Tags.Find(id).TagName ;
                 ViewBag.Tag = Tag;
-               
+                ViewData["Tags"] = db.Tags.ToList();
 
-            return View(articleTags.Where(s => s.TagID == id).ToList());
+                return View(articleTags.Where(s => s.TagID == id).OrderByDescending(s => s.Articles.CreationDate).ToList().ToPagedList(page ?? 1, 3));
         }
 
         // GET: ArticleTags/Details/5
