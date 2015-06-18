@@ -590,6 +590,10 @@
     <Content Include="Views\UsersAdmin\Delete.cshtml" />
     <Content Include="Views\UsersAdmin\Create.cshtml" />
     <Content Include="Views\ArticleTags\Edit_.cshtml" />
+    <Content Include="Views\Articles\Index_.cshtml" />
+    <Content Include="Views\Articles\Create_.cshtml" />
+    <Content Include="Views\Articles\Edit_.cshtml" />
+    <Content Include="Views\Articles\Details_.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,164 @@
+﻿@model News_MVC.Models.Articles
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Articles</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ArticleID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorID, "Author", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @ViewBag.AuthorID
+                @*@Html.DropDownList("AuthorID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AuthorID, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImgURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImgURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImgURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArticleName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ArticleName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.TextAreaFor(model => model.Summary, 5, 100, null)
+                @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArticleContent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ArticleContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { Value = @Model.CreationDate.ToString("yyyy-MM-dd"), @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })*@
+
+                @Html.DisplayFor(model => model.CreationDate, new { htmlAttributes = new { Value = @Model.CreationDate.ToString("yyyy-MM-dd HH:mm:ss"), @class = "form-control", @readonly = "readonly" } })
+
+                @*@Model.CreationDate.ToString("yyyy-MM-dd HH:mm:ss")*@
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateModitied, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DisplayFor(model => model.DateModitied, new { htmlAttributes = new { Value = @Model.CreationDate.ToString("yyyy-MM-dd HH:mm:ss"), @class = "form-control", @readonly = "readonly" } })
+
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ToHomePage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(model => model.ToHomePage, new { @checked = Model.ToHomePage })
+                        @Html.ValidationMessageFor(model => model.ToHomePage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToHomePage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ToHomePage)
+                    @Html.ValidationMessageFor(model => model.ToHomePage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToArchive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ToArchive)
+                    @Html.ValidationMessageFor(model => model.ToArchive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index_") <br />
+
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

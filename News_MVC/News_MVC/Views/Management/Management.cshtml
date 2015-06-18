@@ -19,7 +19,7 @@
 <br />
 @if (Request.IsAuthenticated)
 {
-    <li>@Html.ActionLink("Manage Articles", "Index", "Articles")</li>
+    <li>@Html.ActionLink("Manage Articles", "Index_", "Articles")</li>
 }
 @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Editor")))
 {

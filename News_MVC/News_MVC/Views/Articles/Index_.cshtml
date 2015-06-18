@@ -1,0 +1,141 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<News_MVC.Models.Articles>
+
+@*@User.IsInRole("Admin")*@
+@{
+    ViewBag.Title = "Index";
+}
+
+<br>
+@*<h2>Index</h2>*@
+
+<p>
+    @Html.ActionLink("Create New Article", "Create_")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Priority)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.First().ImgURL)*@
+            Image
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.First().ArticleName)
+            <br/>
+            @Html.DisplayNameFor(model => model.First().Summary)
+
+        </th>
+ 
+
+        @*<th>
+            @Html.DisplayNameFor(model => model.First().ArticleContent)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreationDate)
+            <br />
+            Modified
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ToHomePage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ToArchive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().AspNetUsers.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            
+            <td>
+                @*@Html.DisplayFor(modelItem => item.ImgURL)*@
+                <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
+
+            </td> 
+
+            <td>
+                <div style="width: 400px; height: 50px; overflow-y:auto">
+                    @Html.DisplayFor(modelItem => item.ArticleName)
+                </div>
+                
+            @*</td>
+
+            <td>*@
+            
+                <div style="width: 400px; height: 200px; overflow-y: auto;">
+                    @*@Html.DisplayFor(modelItem => item.ArticleContent)*@
+
+                    @*@Html.Raw(item.ArticleContent)*@
+                    
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </div>
+            
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+                <br />
+                <br />
+                @Html.DisplayFor(modelItem => item.DateModitied)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToHomePage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToArchive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit_", new { id = item.ArticleID }) <br />
+                @Html.ActionLink("Details", "Details_", new { id = item.ArticleID }) <br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.ArticleID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index_", new { page }))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

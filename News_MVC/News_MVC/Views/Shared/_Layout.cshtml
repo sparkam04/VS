@@ -17,12 +17,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("News MVC", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("CodeHunters' News", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Articles", "ArticleList", "Articles")</li>
+                    @*<li>@Html.ActionLink("Articles", "ArticleList", "Articles")</li>*@
                     <li>@Html.ActionLink("Archive", "ArchiveList", "Articles")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -39,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - News MVC</p>
+            <p>&copy; @DateTime.Now.Year - CodeHunters' News</p>
         </footer>
     </div>
 
