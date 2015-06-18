@@ -1,0 +1,39 @@
+﻿@model IEnumerable<News_MVC.Models.Articles>
+
+
+<table class="table">
+    @*<strong>Feat</strong>*@
+    <br />
+
+    @foreach (var item in Model)
+    {
+        @*<tr>
+            @Html.ActionLink(item.ArticleName, "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+            @Html.Raw("|")
+        </tr>*@
+
+    <tr>
+        <td>
+
+            <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
+
+        </td>
+
+        <td>
+            <div style="width: auto; height: auto; overflow-y:auto">
+                <h2>  @Html.DisplayFor(modelItem => item.ArticleName) </h2>
+            </div>
+
+            <div style="width: auto; height: auto; overflow-y: auto;">
+
+                @Html.DisplayFor(modelItem => item.Summary)
+            </div>
+
+            @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+
+    </tr>
+
+    }
+
+</table>
+

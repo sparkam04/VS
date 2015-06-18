@@ -6,51 +6,55 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@if (Model.PageNumber==1)
+{
+    <div class="jumbotron">
+        <h2>Featured News</h2>
+        <table class="table">
+        
 
-<div class="jumbotron">
-    <h2>Featured News</h2>
-    <table class="table">
+                @Html.Partial("_FeatArt", ViewData["FeatArticle"])
 
         
-        @{
-            var l1 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority > 0)).OrderBy(s => s.Priority).ToList();
-            var l2 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority == null)).OrderByDescending(s => s.CreationDate).ToList();
-            var l3 = l1.Union(l2);
-
-            var xxx = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderByDescending(s => s.Priority).ToList();
         
-        }
-        @foreach (var item in xxx)
-        {
-            <tr>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.ImgURL)*@
-                    <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
 
-                </td>
-                
-                <td>
-                    <div style="width: auto; height: auto; overflow-y:auto">
-                        <h2>  @Html.DisplayFor(modelItem => item.ArticleName) </h2>
-                    </div>
+            @*@{
+                    var l1 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority > 0)).OrderBy(s => s.Priority).ToList();
+                    var l2 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority == null)).OrderByDescending(s => s.CreationDate).ToList();
+                    var l3 = l1.Union(l2);
 
-                    <div style="width: auto; height: auto; overflow-y: auto;">
+                    var xxx = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderByDescending(s => s.Priority).ToList();
 
-                        @Html.DisplayFor(modelItem => item.Summary)
-                    </div>
+                }
+                @foreach (var item in xxx)
+                {
+                    <tr>
+                        <td>
 
-                    @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+                            <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
 
-            </tr>
-        }
+                        </td>
 
-    </table>
+                        <td>
+                            <div style="width: auto; height: auto; overflow-y:auto">
+                                <h2>  @Html.DisplayFor(modelItem => item.ArticleName) </h2>
+                            </div>
+
+                            <div style="width: auto; height: auto; overflow-y: auto;">
+
+                                @Html.DisplayFor(modelItem => item.Summary)
+                            </div>
+
+                            @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+
+                    </tr>
+                }*@
+
+        </table>
 
 
-
-
-</div>
-
+    </div>
+}
 <div>
 
 
@@ -63,7 +67,7 @@
 
     <table class="table">
 
-        @foreach (var item in l3)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -89,8 +93,8 @@
 
     </table>
 
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
-    @Html.PagedListPager(Model, page => Url.Action("ArticleList", new { page }))
 
     <div>
         @*<h4>Tags</h4>
@@ -111,21 +115,3 @@
 
 </div>
 
-
-@*<div class="row">
-    <div class="col-md-4">
-        <h2>Placeholder 1</h2>
-        <p>Placeholder text Placeholder text Placeholder text Placeholder text Placeholder text </p>
-        <p><a class="btn btn-default" href="http://">Btn &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Placeholder 2</h2>
-        <p>Placeholder text Placeholder text Placeholder text Placeholder text Placeholder text Placeholder text </p>
-        <p><a class="btn btn-default" href="http://">Btn &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Placeholder 3</h2>
-        <p>Placeholder text Placeholder text Placeholder text Placeholder text Placeholder text Placeholder text </p>
-        <p><a class="btn btn-default" href="http://">Btn &raquo;</a></p>
-    </div>
-</div>*@

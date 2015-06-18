@@ -28,16 +28,17 @@ namespace News_MVC.Controllers
         {
             var articles = db.Articles.Include(a => a.AspNetUsers);
 
-            var l1 = articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority > 0)).OrderBy(s => s.Priority).ToList();
+            var l1 = articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority >0)).OrderBy(s => s.Priority).ToList();
             var l2 = articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority == null)).OrderByDescending(s => s.CreationDate).ToList();
 
             //ViewBag.Tags = db.Tags.ToList();
             ViewData["Tags"] = db.Tags.ToList();
 
-            //ViewBag.FeatArticle = db.Articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderBy(s => s.Priority).ToList();
+            ViewBag.FeatArticle = db.Articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderBy(s => s.Priority).ToList();
+            ViewData["FeatArticle"] = db.Articles.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderBy(s => s.Priority).ToList();
 
-            //return View(l1.Union(l2).ToPagedList(page ?? 1, 10));
-            return View(articles.Where(s => s.ToHomePage == true && (s.ToArchive == false)).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 10));
+            return View(l1.Union(l2).ToPagedList(page ?? 1, 10));
+            //return View(articles.Where(s => s.ToHomePage == true && (s.ToArchive == false)).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 10));
          
             
             //return View();

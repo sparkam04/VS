@@ -568,7 +568,7 @@
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
     <Content Include="Views\TinyMCESample\Index.cshtml" />
     <Content Include="Views\Management\Management.cshtml" />
-    <Content Include="Views\Articles\ArticleList.cshtml" />
+    <Content Include="Views\Articles\ArticleList-.cshtml" />
     <Content Include="Views\Articles\ArticleContent.cshtml" />
     <Content Include="Views\Articles\ArchiveList.cshtml" />
     <Content Include="Views\ArticleTags\Create.cshtml" />
@@ -594,6 +594,8 @@
     <Content Include="Views\Articles\Create_.cshtml" />
     <Content Include="Views\Articles\Edit_.cshtml" />
     <Content Include="Views\Articles\Details_.cshtml" />
+    <Content Include="Views\Articles\ArticleList.cshtml" />
+    <Content Include="Views\Shared\_FeatArt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

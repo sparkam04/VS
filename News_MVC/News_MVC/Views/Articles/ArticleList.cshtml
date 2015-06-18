@@ -12,16 +12,16 @@
 <table class="table">
 
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-           
-            @Html.ActionLink(item.ArticleName, "ArticleContent", new { id = item.ArticleID })
-        
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                @Html.ActionLink(item.ArticleName, "ArticleContent", new { id = item.ArticleID })
+
+            </td>
+        </tr>
+    }
 
 </table>
 
@@ -30,15 +30,15 @@
 
 <div>
     @*<h4>Tags</h4>
- @foreach (var item in ViewData["Tags"]
-                as List<News_MVC.Models.Tags>)
- {
-    
-        @Html.ActionLink(item.TagName, "TagArticleList", "ArticleTags", new { id = item.TagID }, null)
-     <br/>
+        @foreach (var item in ViewData["Tags"]
+                       as List<News_MVC.Models.Tags>)
+        {
 
-    
- }*@
+               @Html.ActionLink(item.TagName, "TagArticleList", "ArticleTags", new { id = item.TagID }, null)
+            <br/>
+
+
+        }*@
 
     @Html.Partial("_TagsList", ViewData["Tags"])
 </div>
