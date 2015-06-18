@@ -48,7 +48,7 @@ namespace News_MVC.Controllers
 
             //ViewBag.Tags = db.Tags.ToList();
             ViewData["Tags"] = db.Tags.ToList();
-            return View(l1.Union(l2).ToPagedList(page ?? 1, 3));
+            return View(l1.Union(l2).ToPagedList(page ?? 1, 10));
             //return View(articles.Where(s => s.ToHomePage == true && (s.ToArchive == false)).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 3));
         }
 
@@ -59,7 +59,7 @@ namespace News_MVC.Controllers
             var articles = db.Articles.Include(a => a.AspNetUsers);
 
             ViewData["Tags"] = db.Tags.ToList();
-            return View(articles.Where(s => s.ToArchive == true).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 3));
+            return View(articles.Where(s => s.ToArchive == true).OrderByDescending(s => s.CreationDate).ToList().ToPagedList(page ?? 1, 10));
         }
 
 

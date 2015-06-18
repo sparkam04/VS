@@ -12,12 +12,14 @@
           <Property Name="ArticleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ArticleName" Type="nvarchar" MaxLength="250" />
-          <Property Name="ArticleContent" Type="text" />
-          <Property Name="CreationDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ArticleContent" Type="nvarchar(max)" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ToHomePage" Type="bit" Nullable="false" />
           <Property Name="ToArchive" Type="bit" Nullable="false" />
-          <Property Name="DateModitied" Type="datetime2" Precision="7" />
+          <Property Name="DateModitied" Type="datetime" />
           <Property Name="Priority" Type="int" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ImgURL" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="ArticleTags">
           <Key>
@@ -61,6 +63,18 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Articles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articles">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ArticleTags_Articles">
           <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
           <End Role="ArticleTags" Type="Self.ArticleTags" Multiplicity="*" />
@@ -103,6 +117,10 @@
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Articles_AspNetUsers" Association="Self.FK_Articles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Articles" EntitySet="Articles" />
+          </AssociationSet>
           <AssociationSet Name="FK_ArticleTags_Articles" Association="Self.FK_ArticleTags_Articles">
             <End Role="Articles" EntitySet="Articles" />
             <End Role="ArticleTags" EntitySet="ArticleTags" />
@@ -127,14 +145,16 @@
           <Property Name="ArticleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ArticleName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ToHomePage" Type="Boolean" Nullable="false" />
           <Property Name="ToArchive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Articles_AspNetUsers" FromRole="Articles" ToRole="AspNetUsers" />
-          <Property Name="DateModitied" Type="DateTime" Precision="7" />
+          <Property Name="DateModitied" Type="DateTime" Precision="3" />
           <Property Name="Priority" Type="Int32" />
           <NavigationProperty Name="ArticleTags" Relationship="News_MVCModel.FK_ArticleTags_Articles" FromRole="Articles" ToRole="ArticleTags" />
+          <Property Name="Summary" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ImgURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -264,7 +284,9 @@
     <EntitySetMapping Name="Articles">
       <EntityTypeMapping TypeName="IsTypeOf(News_MVCModel.Articles)">
         <MappingFragment StoreEntitySet="Articles">
-          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="ImgURL" ColumnName="ImgURL" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
           <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
           <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
           <ScalarProperty Name="ArticleContent" ColumnName="ArticleContent" />

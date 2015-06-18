@@ -20,7 +20,7 @@ namespace News_MVC.Models
         {
             this.ArticleTags = new HashSet<ArticleTags>();
         }
-
+    
         public int ArticleID { get; set; }
         public string AuthorID { get; set; }
         public string ArticleName { get; set; }
@@ -32,9 +32,10 @@ namespace News_MVC.Models
         public bool ToArchive { get; set; }
         public Nullable<System.DateTime> DateModitied { get; set; }
         public Nullable<int> Priority { get; set; }
-
+        public string Summary { get; set; }
+        public string ImgURL { get; set; }
+    
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual ICollection<ArticleTags> ArticleTags { get; set; }
     }
 }
-

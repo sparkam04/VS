@@ -42,7 +42,7 @@ namespace News_MVC.Controllers
                 ViewBag.Tag = Tag;
                 ViewData["Tags"] = db.Tags.ToList();
 
-                return View(articleTags.Where(s => s.TagID == id).OrderByDescending(s => s.Articles.CreationDate).ToList().ToPagedList(page ?? 1, 3));
+                return View(articleTags.Where(s => s.TagID == id).OrderByDescending(s => s.Articles.CreationDate).ToList().ToPagedList(page ?? 1, 10));
         }
 
         // GET: ArticleTags/Details/5
