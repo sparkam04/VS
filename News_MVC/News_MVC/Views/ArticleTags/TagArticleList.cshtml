@@ -12,25 +12,78 @@
 </p>
 <br/>
 
-<table class="table">
-    @*<tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Articles.ArticleName)
-        </th>
-
-    </tr>*@
+@*<table class="table">
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @*@Html.DisplayFor(modelItem => item.Articles.ArticleName)*@
+           
             @Html.ActionLink(item.Articles.ArticleName, "ArticleContent", "Articles", new { id = item.Articles.ArticleID }, null)
         </td>
 
     </tr>
 }
 
+</table>*@
+
+<table class="table">
+
+    @*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.Articles.ImgURL" style="max-width: 150px; height: auto; " />
+
+            </td>
+
+            <td>
+                <div style="width: auto; height: auto; overflow-y:auto">
+                    <h4>  @Html.DisplayFor(modelItem => item.Articles.ArticleName) </h4>
+                </div>
+
+                <div style="width: auto; height: auto; overflow-y: auto;">
+
+                    @Html.DisplayFor(modelItem => item.Articles.Summary)
+                </div>
+
+                @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.Articles.ArticleID }, null)
+
+        </tr>
+    }*@
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <div>
+                    <div class="col-md-2">
+
+                        <img src="@item.Articles.ImgURL" style="max-width: 150px; height: auto; " />
+                    </div>
+
+                    <div class="col-md-10">
+                        <div style="width: auto; height: auto; overflow-y:auto">
+                            <h4>  @Html.DisplayFor(modelItem => item.Articles.ArticleName) </h4>
+                        </div>
+
+                        <div style="width: auto; height: auto; overflow-y: auto;">
+
+                            @Html.DisplayFor(modelItem => item.Articles.Summary)
+                        </div>
+
+                        @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.Articles.ArticleID }, null)
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+    }
+
 </table>
+
+
 
 @Html.PagedListPager(Model, page => Url.Action("TagArticleList", new { page }))
 

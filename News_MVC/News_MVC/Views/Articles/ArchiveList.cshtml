@@ -12,7 +12,7 @@
 
 <h2>Archived Articles</h2>
 
-<table class="table">
+@*<table class="table">
 
 
 @foreach (var item in Model)
@@ -26,7 +26,64 @@
     </tr>
 }
 
+</table>*@
+
+<table class="table">
+
+    @*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
+            </td>
+
+            <td>
+                <div style="width: auto; height: auto; overflow-y:auto">
+                    <h4>  @Html.DisplayFor(modelItem => item.ArticleName) </h4>
+                </div>
+
+                <div style="width: auto; height: auto; overflow-y: auto;">
+
+                    @Html.DisplayFor(modelItem => item.Summary)
+                </div>
+
+                @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+        </tr>
+    }*@
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                <div>
+                    <div class="col-md-2">
+
+                        <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
+                    </div>
+
+                    <div class="col-md-10">
+                        <div style="width: auto; height: auto; overflow-y:auto">
+                            <h4>  @Html.DisplayFor(modelItem => item.ArticleName) </h4>
+                        </div>
+
+                        <div style="width: auto; height: auto; overflow-y: auto;">
+
+                            @Html.DisplayFor(modelItem => item.Summary)
+                        </div>
+
+                        @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+    }
+
 </table>
+
+
 
 @Html.PagedListPager(Model, page => Url.Action("ArchiveList", new { page}))
 

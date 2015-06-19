@@ -10,54 +10,16 @@
 {
     <div class="jumbotron">
         <h2>Featured News</h2>
-        <table class="table">
+        @*<table class="table">*@
         
 
                 @Html.Partial("_FeatArt", ViewData["FeatArticle"])
 
-        
-        
-
-            @*@{
-                    var l1 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority > 0)).OrderBy(s => s.Priority).ToList();
-                    var l2 = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority == null)).OrderByDescending(s => s.CreationDate).ToList();
-                    var l3 = l1.Union(l2);
-
-                    var xxx = Model.Where(s => s.ToHomePage == true && (s.ToArchive == false) && (s.Priority <= 0)).OrderByDescending(s => s.Priority).ToList();
-
-                }
-                @foreach (var item in xxx)
-                {
-                    <tr>
-                        <td>
-
-                            <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
-
-                        </td>
-
-                        <td>
-                            <div style="width: auto; height: auto; overflow-y:auto">
-                                <h2>  @Html.DisplayFor(modelItem => item.ArticleName) </h2>
-                            </div>
-
-                            <div style="width: auto; height: auto; overflow-y: auto;">
-
-                                @Html.DisplayFor(modelItem => item.Summary)
-                            </div>
-
-                            @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
-
-                    </tr>
-                }*@
-
-        </table>
-
+        @*</table>*@
 
     </div>
 }
 <div>
-
-
 
     @{
         ViewBag.Title = "Articles";
@@ -69,14 +31,16 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.ImgURL)*@
+            
+    <tr>
+        <td>
+            <div>
+                <div class="col-md-2">
+
                     <img src="@item.ImgURL" style="max-width: 150px; height: auto; " />
+                </div>
 
-                </td>
-
-                <td>
+                <div class="col-md-10">
                     <div style="width: auto; height: auto; overflow-y:auto">
                         <h4>  @Html.DisplayFor(modelItem => item.ArticleName) </h4>
                     </div>
@@ -86,11 +50,14 @@
                         @Html.DisplayFor(modelItem => item.Summary)
                     </div>
 
-                    @Html.ActionLink("read more...", "ArticleContent","Articles", new { id = item.ArticleID },null)
+                    @Html.ActionLink("read more...", "ArticleContent", "Articles", new { id = item.ArticleID }, null)
+                </div>
 
-            </tr>
-        }
-
+            </div>
+            
+        </td>
+    </tr>
+      }
     </table>
 
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
