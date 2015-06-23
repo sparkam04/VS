@@ -225,7 +225,13 @@ namespace News_MVC.Controllers
                 return HttpNotFound();
             }
 
-            ViewData["Tags"] = db.Tags.ToList();
+            //var articleTags = db.ArticleTags.Include(a => a.Articles).Include(a => a.Tags);
+            //var tags = articleTags.Where(a=> a.ArticleID==id).Select(a=> a.Tags);
+            
+            var tags = articles.ArticleTags.Where(a => a.ArticleID == id).Select(a => a.Tags);
+                        
+            //ViewData["Tags"] = db.Tags.ToList();
+            ViewData["Tags"] = tags;
             return View(articles);
         }
 
